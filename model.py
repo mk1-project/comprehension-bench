@@ -69,17 +69,6 @@ class Model:
 
     @retry(wait=wait_exponential(multiplier=1, min=1, max=10))
     def generate_openai(self, messages, temperature=0.3, max_tokens=512):
-        """
-        Generate response using OpenAI API with context.
-
-        Args:
-            query: The question to answer
-            context: List of relevant text chunks to use as context
-
-        Returns:
-            Generated response
-        """
-
         kwargs = {
             'model': self.model,
             'messages': messages,
