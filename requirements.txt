@@ -1,0 +1,6 @@
+httpx
+datasets
+anthropic
+openai
+google-genai
+tenacity
