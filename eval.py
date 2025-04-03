@@ -26,7 +26,7 @@ eval_prompt_template = open("prompt_templates/eval_prompt_template.txt", "r").re
 results = defaultdict(list)
 
 for i, example in enumerate(test_split):
-    if args.num_samples and len(results[example['context_length']]) < args.num_samples:
+    if args.num_samples is None or len(results[example['context_length']]) < args.num_samples:
         generation_prompt = generation_prompt_template.format(query=example["query"], context=example["context"])
         messages = [{"role": "user", "content": generation_prompt}]
         generation_response = generation_model.generate(messages, max_tokens=10000)
