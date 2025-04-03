@@ -1,6 +1,5 @@
 ---
 language: en
-license: MIT
 multilinguality: monolingual
 task_categories:
 - comprehension
