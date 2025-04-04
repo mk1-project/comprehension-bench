@@ -13,12 +13,15 @@ parser.add_argument("--evaluation_backend", type=str, default="openai")
 parser.add_argument("--evaluation_model", type=str, default="gpt-4o")
 parser.add_argument("--evaluation_api_key", type=str, required=True)
 parser.add_argument("--num_samples", type=int, default=None, help="Number of samples to evaluate for each context length. By default, all samples are evaluated.")
+parser.add_argument("--min_length", type=int, default=0, help="Minimum context length to evaluate. (characters)")
+parser.add_argument("--max_length", type=int, default=10_000_000, help="Maximum context length to evaluate. (characters)")
 args = parser.parse_args()
 
 generation_model = Model(backend=args.generation_backend, model=args.generation_model, api_key=args.generation_api_key)
 evaluation_model = Model(backend=args.evaluation_backend, model=args.evaluation_model, api_key=args.evaluation_api_key)
 
 test_split = load_dataset("comprehension-dataset", split="test")
+test_split = test_split.filter(lambda x: args.min_length <= x["context_length"] <= args.max_length)
 
 generation_prompt_template = open("prompt_templates/generation_prompt_template.txt", "r").read()
 eval_prompt_template = open("prompt_templates/eval_prompt_template.txt", "r").read()
