@@ -25,15 +25,19 @@ eval_prompt_template = open("prompt_templates/eval_prompt_template.txt", "r").re
 
 results = defaultdict(list)
 
+generation_failures = []
+
 for i, example in enumerate(test_split):
     if args.num_samples is None or len(results[example['context_length']]) < args.num_samples:
         generation_prompt = generation_prompt_template.format(query=example["query"], context=example["context"])
-        messages = [{"role": "user", "content": generation_prompt}]
-        generation_response = generation_model.generate(messages, max_tokens=10000)
+        generation_response = generation_model.generate(generation_prompt)
+
+        if generation_response is None:
+            generation_failures.append(example["context_length"])
+            continue
 
         eval_prompt = eval_prompt_template.format(query=example["query"], answer=example["answer"], response=generation_response)
-        messages = [{"role": "user", "content": eval_prompt}]
-        eval_response = evaluation_model.generate(messages, max_tokens=10000)
+        eval_response = evaluation_model.generate(eval_prompt)
 
         correct = eval_response.strip().lower() == "yes"
 
@@ -46,8 +50,8 @@ for i, example in enumerate(test_split):
     print(f"Query:")
     print(f"{example['query']}")
     print("\n----------------------------------\n")
-    print(f"Model Response (last 300 characters):")
-    print(f"{generation_response[-300:].strip()}")
+    print(f"Model Response:")
+    print(f"{generation_response.strip()}")
     print("\n----------------------------------\n")
     print(f"Evaluation Response:")
     print(f"{eval_response.strip()}")
@@ -57,3 +61,5 @@ for i, example in enumerate(test_split):
         if len(correct_list) > 0:
             accuracy = sum(correct_list) * 100 / len(correct_list)
             print(f"Context length {context_length}: {accuracy:.2f}% ({sum(correct_list)}/{len(correct_list)})")
+
+    print(f"Generation failures: {generation_failures}")

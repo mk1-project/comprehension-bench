@@ -47,15 +47,11 @@ class Model:
             self.generate = self.generate_openai
 
     @retry(wait=wait_exponential(multiplier=1, min=1, max=10))
-    def generate_anthropic(self, messages, temperature=0.3, max_tokens=512):
-        # Convert system messages to user messages
-        for message in messages:
-            if message["role"] == "system":
-                message["role"] = "user"
-
+    def generate_anthropic(self, user_content, temperature=0.3, max_tokens=10000):
+        messages = [{"role": "user", "content": user_content}]
         async def _generate():
             messages_response = await self.client.messages.create(
-                model="claude-3-5-sonnet-20240620",
+                model=self.model,
                 max_tokens=max_tokens,
                 temperature=temperature,
                 messages=messages
@@ -68,13 +64,14 @@ class Model:
         return response_text
 
     @retry(wait=wait_exponential(multiplier=1, min=1, max=10))
-    def generate_openai(self, messages, temperature=0.3, max_tokens=512):
+    def generate_openai(self, user_content, temperature=0.3, max_tokens=10000):
+        messages = [{"role": "user", "content": user_content}]
         kwargs = {
             'model': self.model,
             'messages': messages,
             'max_completion_tokens': max_tokens,
         }
-        if 'o3-mini' not in self.model:
+        if 'o3-mini' not in self.model: # o3-mini doesn't support temperature
             kwargs['temperature'] = temperature
 
         response = self.client.chat.completions.create(**kwargs)
@@ -83,12 +80,13 @@ class Model:
         return response_text
 
     @retry(wait=wait_exponential(multiplier=1, min=1, max=10))
-    def generate_google(self, messages, max_tokens=512):
+    def generate_google(self, user_content, temperature=0.3, max_tokens=10000):
         response = self.client.models.generate_content(
             model=self.model,
-            contents=messages[0]["content"],
+            contents=user_content,
             config=types.GenerateContentConfig(
-                max_output_tokens=max_tokens
+                max_output_tokens=max_tokens,
+                temperature=temperature
             )
         )
         return response.text
