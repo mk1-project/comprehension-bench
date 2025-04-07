@@ -2,9 +2,9 @@
 
 This is a tool for replicating the MK1 Comprehension Benchmark results presented in [the accompanying blog](PLACEHOLDER_URL).
 
-The included dataset is a single synthetic document with nested natural language clauses and 100 associated queries.
+The included dataset consists of a single generated logically consistent natural language document and with 100 associated queries on the document. Because these documents can be easily regenerated, model's cannot be trained on the dataset.
 
-Each clause is formatted as follows:
+The document is made up of nested clauses formatted as follows:
 
 ```
 The canyon is equipped for hands-on training if at least one of the following is satisfied:
@@ -22,6 +22,8 @@ Given these conditions:
 - the hydra is aligned with strategic goals
 Is the windmill consistently fashionably late?
 ```
+
+The document's context length is extended by inserting clauses that are irrelevant to the original set. The benchmark consists of passing each query along with the document to a generation model, and then evaluating its response versus the known answer (true or false).
 
 # Installation
 
