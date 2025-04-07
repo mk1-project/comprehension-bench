@@ -1,19 +1,19 @@
 # comprehension-bench
 
-This is a tool for replicating the MK1 Comprehension Benchmark results presented in [the accompanying blog](PLACEHOLDER_URL).
+This tool replicates the MK1 Comprehension Benchmark, designed to evaluate the reasoning capabilities of large language models. The benchmark and its results are detailed in [the accompanying blog post](PLACEHOLDER_URL).
 
-The included dataset consists of a single generated logically consistent natural language document and with 100 associated queries on the document. Because these documents can be easily regenerated, model's cannot be trained on the dataset.
+The benchmark uses a dataset comprising a single, procedurally generated, logically consistent natural language document paired with 100 associated queries. Because the documents are uniquely generated each time, models cannot simply memorize the dataset; they must reason over the provided text.
 
-The document is made up of nested clauses formatted as follows:
+The document consists of nested clauses structured like this example:
 
 ```
 The canyon is equipped for hands-on training if at least one of the following is satisfied:
     (1) All of the following must be true:
         (a) the tambourine is licensed for special operations
         (b) the talisman is proficient in energy conversion
-``` 
+```
 
-Each query, which is provably true or false, is formatted as follows:
+Each query presents a set of conditions based on the document and asks a question with a provably true or false answer, formatted like this:
 
 ```
 Given these conditions:
@@ -23,7 +23,7 @@ Given these conditions:
 Is the windmill consistently fashionably late?
 ```
 
-The document's context length is extended by inserting clauses that are irrelevant to the original set. The benchmark consists of passing each query along with the document to a generation model, and then evaluating its response versus the known answer (true or false).
+To assess model performance across varying input sizes, the document's context length is systematically increased by inserting clauses that are irrelevant to the core logical structure. The evaluation process involves sending the extended document and a query to a target model, then comparing the model's response against the known correct answer (true or false).
 
 # Installation
 
