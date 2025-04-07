@@ -1,6 +1,27 @@
 # comprehension-bench
 
-This is a tool for evaluating the performance of large language models on the [MK1 Comprehension Benchmark](PLACEHOLDER_URL).
+This is a tool for replicating the MK1 Comprehension Benchmark results presented in [the accompanying blog](PLACEHOLDER_URL).
+
+The included dataset is a single synthetic document with nested natural language clauses and 100 associated queries.
+
+Each clause is formatted as follows:
+
+```
+The canyon is equipped for hands-on training if at least one of the following is satisfied:
+    (1) All of the following must be true:
+        (a) the tambourine is licensed for special operations
+        (b) the talisman is proficient in energy conversion
+``` 
+
+Each query, which is provably true or false, is formatted as follows:
+
+```
+Given these conditions:
+- the canyon is equipped for hands-on training
+- the loom is synchronized with atomic clocks
+- the hydra is aligned with strategic goals
+Is the windmill consistently fashionably late?
+```
 
 # Installation
 
