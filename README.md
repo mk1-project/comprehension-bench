@@ -1,8 +1,17 @@
 # comprehension-bench
 
-This is a tool for evaluating the performance of large language models on the [MK1 Comprehension Benchmark](TODO).
+This is a tool for evaluating the performance of large language models on the [MK1 Comprehension Benchmark](PLACEHOLDER_URL).
+
+# Installation
+
+To install the necessary dependencies, run:
+```bash
+pip install -r requirements.txt
+```
 
 # Benchmark Results
+
+The plot below shows the performance of various models on the benchmark across different context lengths.
 
 ![Benchmark Results](./assets/plot.png)
 
