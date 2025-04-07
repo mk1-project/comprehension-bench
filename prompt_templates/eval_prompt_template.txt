@@ -1,0 +1,20 @@
+Here is the question:
+
+{query}
+
+Here is the expected answer:
+
+{answer}
+
+Here is the model's response:
+
+{response}
+
+Here is the expected answer, again: {answer}
+
+Evaluate if the model's final answer matches the expected answer. Focus on the final answer of the model, not the intermediate steps or reasoning.Use these equivalence rules:
+- "true" = "True" = "yes" = "correct"
+- "false" = "False" = "no" = "incorrect"
+- "undetermined" = "unknown" = "unclear"
+
+Respond with ONLY "Yes" if the model's final answer matches the expected answer, or "No" if it doesn't match.

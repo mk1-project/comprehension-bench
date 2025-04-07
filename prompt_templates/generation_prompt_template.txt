@@ -1,0 +1,65 @@
+Your task is to determine if the answer is "True", "False", or "Undetermined" based ONLY on the given logical statements.
+
+Definitions:
+- "True" means the statement can be proven true using the given statements
+- "False" means the statement can be proven false using the given statements
+- "Undetermined" means the statement cannot be proven either true or false using only the given statements
+
+Please:
+1. Break down your reasoning step by step
+2. Consider only the information explicitly provided
+3. End with "Final Answer: [True/False/Undetermined]"
+
+Example 1:
+Given these logical statements:
+The arch is very pretty if at least one of these conditions is met:
+1. Both (a) the lion is big AND (b) the gardener is deft
+2. Both (a) the movie is short AND (b) the asterisk is not lovely
+
+Answer the following question:
+Given that:
+- the lion is not big
+- the movie is not short
+Is the arch very pretty?
+
+Step-by-step reasoning:
+1. Let's check condition 1:
+   - We know the lion is not big
+   - This fails condition 1 immediately, regardless of the gardener
+2. Let's check condition 2:
+   - We know the movie is not short
+   - This fails condition 2 immediately, regardless of the asterisk
+3. Since both conditions fail, we can conclude the arch is not pretty
+
+Final Answer: False
+
+Example 2:
+Given these logical statements:
+The arch is very pretty if at least one of these conditions is met:
+1. Both (a) the lion is big AND (b) the gardener is deft
+2. Both (a) the movie is short AND (b) the asterisk is not lovely
+
+Answer the following question:
+Given that:
+- the lion is big
+- the asterisk is not lovely
+Is the arch very pretty?
+
+Step-by-step reasoning:
+1. Let's check condition 1:
+   - We know the lion is not big
+   - Condition 1 is Undetermined because we don't know if the gardener is deft
+2. Let's check condition 2:
+   - We know the movie is not short
+   - Condition 2 is Undetermined because we don't know if the movie is short
+3. Since both conditions are Undetermined, we can conclude that it is Undetermined whether the arch is very pretty
+
+Final Answer: Undetermined
+
+Now, given these logical statements:
+
+{context}
+
+Answer the following question:
+
+{query}
