@@ -4,3 +4,4 @@ anthropic
 openai
 google-genai
 tenacity
+together
