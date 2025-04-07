@@ -1,6 +1,6 @@
 # comprehension-bench
 
-This is a tool for evaluating the performance of large language models on the MK1 Comprehension Benchmark.
+This is a tool for evaluating the performance of large language models on the [MK1 Comprehension Benchmark](TODO).
 
 ## Example Usage
 
